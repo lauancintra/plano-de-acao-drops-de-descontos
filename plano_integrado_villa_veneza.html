@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Plano Integrado · Villa Veneza · Abril 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f1ec;color:#2c2c2a;line-height:1.6}
+.header{background:#2c2c2a;color:#fff;padding:40px;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;background:rgba(255,255,255,0.04);border-radius:50%}
+.hbadge{display:inline-block;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.22);border-radius:20px;padding:3px 14px;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.header h1{font-size:28px;font-weight:700;margin-bottom:6px}
+.header h1 span{color:#e7d7c8}
+.header p{font-size:14px;opacity:.75;max-width:560px}
+.hmeta{display:flex;gap:14px;margin-top:20px;flex-wrap:wrap}
+.hmi{background:rgba(255,255,255,0.09);border-radius:8px;padding:8px 14px;font-size:12px}
+.hmi strong{display:block;font-size:10px;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.container{max-width:1060px;margin:0 auto;padding:36px 24px}
+/* TABS */
+.tabs{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.tab{padding:8px 18px;border-radius:8px;border:1px solid #cec6c3;font-size:13px;cursor:pointer;background:#fff;color:#666;transition:all .15s}
+.tab.active{background:#2c2c2a;color:#fff;border-color:#2c2c2a}
+.panel{display:none}
+.panel.active{display:block}
+/* CARDS */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px}
+@media(max-width:640px){.grid2,.grid3{grid-template-columns:1fr}}
+.card{background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.card-label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.d-email{background:#1D9E75}
+.d-wpp{background:#25d366}
+.d-alert{background:#b7770d}
+.d-insight{background:#1a6db7}
+.card h4{font-size:14px;font-weight:700;color:#2c2c2a;margin-bottom:6px}
+.card p{font-size:13px;color:#555;line-height:1.55}
+.copy{background:#f9f6f2;border-left:3px solid #cec6c3;padding:10px 14px;margin-top:8px;font-size:13px;color:#2c2c2a;font-style:italic;line-height:1.6;border-radius:0}
+.copy strong{font-style:normal;font-size:11px;color:#888;display:block;margin-bottom:3px}
+.timing{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tbadge{font-size:11px;background:#f4f1ec;color:#666;border:1px solid #ddd;border-radius:20px;padding:2px 10px}
+/* HERO */
+.hero{background:#fff;border-radius:14px;padding:20px 22px;margin-bottom:16px;border-left:4px solid #cec6c3;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.hero-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.hero h3{font-size:17px;font-weight:700;color:#2c2c2a}
+.hero-meta{font-size:13px;color:#888;margin-bottom:8px}
+.stars{color:#b7770d;font-size:13px;margin-bottom:6px}
+.quote{font-size:13px;color:#666;font-style:italic;border-left:3px solid #e7d7c8;padding-left:10px;margin:4px 0;line-height:1.5}
+/* PILL */
+.pill{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;white-space:nowrap}
+.pill-g{background:#eafaf1;color:#1e8449}
+.pill-a{background:#fef9ec;color:#b7770d}
+.pill-b{background:#eaf2ff;color:#1a6db7}
+.pill-r{background:#fdf3f3;color:#b93c3c}
+/* FULL CARD */
+.fcard{background:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:24px}
+.kpi{background:#fff;border-radius:12px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.05);border-left:3px solid #cec6c3}
+.kpi.ok{border-left-color:#1D9E75}
+.kpi.warn{border-left-color:#b7770d}
+.kpi.bad{border-left-color:#c0392b}
+.kpi-lbl{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.kpi-val{font-size:22px;font-weight:700;color:#2c2c2a;line-height:1;margin-bottom:4px}
+.kpi-note{font-size:11px;color:#aaa}
+/* ALERT */
+.alert{background:#fef9ec;border-radius:10px;padding:12px 16px;font-size:13px;color:#7d4e00;margin-bottom:14px}
+.alert strong{font-weight:700;display:block;margin-bottom:2px}
+.alert-r{background:#fdf3f3;color:#7d2020}
+/* SECTION TITLE */
+.stitle{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #e8e2d9}
+/* FLOW */
+.flow{display:flex;gap:0;margin-bottom:14px;flex-wrap:wrap}
+.flow-step{flex:1;min-width:140px;background:#fff;border:1px solid #e8e2d9;padding:14px 16px;position:relative}
+.flow-step:not(:last-child)::after{content:'→';position:absolute;right:-12px;top:50%;transform:translateY(-50%);font-size:16px;color:#ccc;z-index:1}
+.flow-step:first-child{border-radius:12px 0 0 12px}
+.flow-step:last-child{border-radius:0 12px 12px 0}
+.flow-time{font-size:10px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.flow-ch{font-size:11px;font-weight:700;margin-bottom:3px}
+.flow-ch.em{color:#1D9E75}
+.flow-ch.wh{color:#25d366}
+.flow-desc{font-size:12px;color:#666;line-height:1.4}
+@media(max-width:600px){.flow-step:not(:last-child)::after{display:none}.flow-step{border-radius:10px;margin-bottom:8px}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="hbadge">Plano Integrado · E-mail + WhatsApp</div>
+  <h1>Operação <span>13–15 Abril</span> + Diagnóstico Martz</h1>
+  <p>Edrone × Martz · 3 produtos · 3 dias · canais coordenados · baseado em dados reais</p>
+  <div class="hmeta">
+    <div class="hmi"><strong>Canal 1</strong>Edrone (e-mail)</div>
+    <div class="hmi"><strong>Canal 2</strong>Martz (WhatsApp)</div>
+    <div class="hmi"><strong>WPP atual</strong>2,63% da receita</div>
+    <div class="hmi"><strong>Potencial WPP</strong>8–12% da receita</div>
+    <div class="hmi"><strong>Gerado em</strong>08 Abr 2026</div>
+  </div>
+</div>
+
+<div class="container">
+<div class="tabs">
+  <button class="tab active" onclick="show('diagnostico',this)">Diagnóstico Martz</button>
+  <button class="tab" onclick="show('d13',this)">Dia 13 · Pantalona</button>
+  <button class="tab" onclick="show('d14',this)">Dia 14 · Cenoura</button>
+  <button class="tab" onclick="show('d15',this)">Dia 15 · Reta</button>
+  <button class="tab" onclick="show('regras',this)">Regras + Oportunidades</button>
+</div>
+
+<!-- DIAGNÓSTICO MARTZ -->
+<div class="panel active" id="diagnostico">
+  <div class="stitle">Panorama WhatsApp · Martz · 22 campanhas mapeadas</div>
+  <div class="kpi-grid">
+    <div class="kpi bad">
+      <div class="kpi-lbl">Participação na receita</div>
+      <div class="kpi-val">2,63%</div>
+      <div class="kpi-note">Potencial: 8–12%</div>
+    </div>
+    <div class="kpi ok">
+      <div class="kpi-lbl">ROI · Carrinho API</div>
+      <div class="kpi-val">19,69x</div>
+      <div class="kpi-note">Melhor campanha ativa</div>
+    </div>
+    <div class="kpi ok">
+      <div class="kpi-lbl">Leitura · Confirmação Pgto</div>
+      <div class="kpi-val">75,26%</div>
+      <div class="kpi-note">Maior engajamento da conta</div>
+    </div>
+    <div class="kpi warn">
+      <div class="kpi-lbl">Clientes dormentes pausados</div>
+      <div class="kpi-val">+11.600</div>
+      <div class="kpi-note">4 campanhas "Saudades" paradas</div>
+    </div>
+    <div class="kpi bad">
+      <div class="kpi-lbl">Campanhas da Páscoa</div>
+      <div class="kpi-val">R$ 0</div>
+      <div class="kpi-note">R$ 216 investidos · 0 pedidos</div>
+    </div>
+    <div class="kpi warn">
+      <div class="kpi-lbl">ROI · Aniversário</div>
+      <div class="kpi-val">2,27x</div>
+      <div class="kpi-note">Potencial dobrado com D+5</div>
+    </div>
+  </div>
+
+  <div class="stitle">3 campanhas de melhor performance</div>
+  <div class="grid3">
+    <div class="card">
+      <span class="pill pill-g" style="margin-bottom:8px;display:inline-block">1º lugar</span>
+      <h4>Carrinho API</h4>
+      <p>ROI 19,69x · R$ 15.243 gerados · sequência D+0 e D+1 com escalonamento de desconto (5% → 10%) e cupom de urgência 24h. Bônus com 100% de resgate em menos de 1 dia.</p>
+    </div>
+    <div class="card">
+      <span class="pill pill-a" style="margin-bottom:8px;display:inline-block">2º lugar</span>
+      <h4>API Aniversário</h4>
+      <p>Maior base ativa: 6.246 clientes. 100% de resgate de cupom entre quem comprou. Fraqueza: apenas 1 disparo (D+0) — sem lembrete de vencimento, perde conversão.</p>
+    </div>
+    <div class="card">
+      <span class="pill pill-b" style="margin-bottom:8px;display:inline-block">3º lugar</span>
+      <h4>Confirmação de Pagamento</h4>
+      <p>100% de entrega · 75,26% de leitura — maior da conta inteira. Atualmente só informativa. Oportunidade enorme de cross-sell que está sendo desperdiçada.</p>
+    </div>
+  </div>
+
+  <div class="stitle">Problemas críticos identificados</div>
+  <div class="grid2">
+    <div class="alert-r alert">
+      <strong>11.626 clientes dormentes sem nenhuma comunicação</strong>
+      4 campanhas de reativação "Saudades" pausadas. A única ativa (64% de leitura) não tem oferta — só link para novidades. Reativar 1% = R$ 13.650 em receita incremental estimada.
+    </div>
+    <div class="alert-r alert">
+      <strong>Campanhas da Páscoa: R$ 216 gastos, R$ 0 de retorno</strong>
+      "Pascoa últimas horas": 394 leituras, zero conversão. "03 pascoa lembrete": 0 mensagens enviadas — campanha não disparou. Problema de configuração de gatilho e ausência de link de compra funcional.
+    </div>
+    <div class="alert">
+      <strong>Aniversário: 0,15% de conversão com 12% OFF</strong>
+      Só 1 disparo no D+0. Clientes que leram mas não compraram no dia não recebem lembrete de "cupom vencendo". Adicionar D+5 pode dobrar a conversão — a estrutura já existe na Carrinho API.
+    </div>
+    <div class="alert">
+      <strong>Confirmação de Pagamento subutilizada</strong>
+      O momento de maior atenção do cliente (acabou de comprar) é usado só para informar. Sem cross-sell, sem ativação de CashBack, sem link para complementos. Oportunidade perdida a cada compra.
+    </div>
+  </div>
+
+  <div class="stitle">Padrão de copy das campanhas vencedoras</div>
+  <div class="fcard">
+    <div class="grid2">
+      <div>
+        <h4 style="font-size:13px;margin-bottom:8px;">O que funciona no WhatsApp da Villa Veneza</h4>
+        <p style="font-size:13px;color:#555;line-height:1.7;">✓ Nome da cliente em destaque no início<br>✓ Tom "amiga para amiga" — assinatura "Ju da Villa Veneza"<br>✓ Urgência específica: "cupom válido só por 24h" (não "corra")<br>✓ Link direto no corpo da mensagem<br>✓ Emojis como marcadores visuais (não decorativos)<br>✓ Contato de suporte como elemento de confiança</p>
+      </div>
+      <div>
+        <h4 style="font-size:13px;margin-bottom:8px;">O que não está funcionando</h4>
+        <p style="font-size:13px;color:#555;line-height:1.7;">✗ CTA sem link direto (Saudades ativa → só link para novidades)<br>✗ Campanha com 1 único disparo (Aniversário → sem lembrete D+5)<br>✗ Sazonais sem gatilho configurado (Páscoa → 0 disparos)<br>✗ Bases pausadas sem justificativa clara (ClubVip: 4.810 clientes parados)<br>✗ Confirmação de compra sem aproveitar o momento de atenção máxima</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 13 -->
+<div class="panel" id="d13">
+  <div class="hero">
+    <div class="hero-head">
+      <h3>Calça Pantalona com Cinto Preta · Dia 13 (domingo)</h3>
+      <span class="pill pill-g">5★ · 3 avaliações · 100% recomendam</span>
+    </div>
+    <div class="hero-meta">R$ 149,00 → <strong>R$ 134,10</strong> com 10% OFF · Exclusiva Villa Veneza · Peça com maior prova social do trio</div>
+    <div class="stars">★★★★★</div>
+    <p class="quote">"Comprei 3 cores, são lindaas, confortáveis e ao mesmo tempo elegante." — Camila A.</p>
+    <p class="quote">"A calça é linda! Ficou exata no corpo." — Izabel</p>
+  </div>
+
+  <div class="stitle">Sequência coordenada do dia</div>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-time">09h00</div>
+      <div class="flow-ch em">E-mail (Edrone)</div>
+      <div class="flow-desc">Disparo principal para toda a base</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">10h00</div>
+      <div class="flow-ch wh">WhatsApp (Martz)</div>
+      <div class="flow-desc">Reforço para base ativa · tom direto</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">15h00</div>
+      <div class="flow-ch em">E-mail resend</div>
+      <div class="flow-desc">Só para quem não abriu o e-mail das 9h</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">18h00</div>
+      <div class="flow-ch wh">WPP reforço (se baixa conversão)</div>
+      <div class="flow-desc">Só se pedidos do dia forem baixos</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-label"><span class="dot d-email"></span> E-mail · Edrone</div>
+      <h4>Assunto — Teste A/B</h4>
+      <div class="copy">
+        <strong>Variante A — prova social como gancho</strong>
+        "Comprei 3 cores" — e com 10% OFF hoje, dá pra entender por quê
+      </div>
+      <div class="copy">
+        <strong>Variante B — urgência + exclusiva</strong>
+        Só hoje: a pantalona exclusiva que as clientes adoram com 10% OFF
+      </div>
+      <h4 style="margin-top:12px;">Estrutura do e-mail</h4>
+      <p>Foto da pantalona em uso → 1 frase de benefício → preço riscado + R$ 134,10 → botão único "Quero agora" → 1 depoimento real de cliente (sem CTA extra)</p>
+      <div class="timing">
+        <span class="tbadge">Envio: 9h</span><span class="tbadge">Resend não-abridoras: 15h</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label"><span class="dot d-wpp"></span> WhatsApp · Martz · Tom: amiga para amiga</div>
+      <h4>1h após o e-mail — mais direto, mais próximo</h4>
+      <div class="copy">
+        <strong>Copy pronta para disparar</strong>
+        Oi *{{1}}*! 🖤 A Pantalona com Cinto Preta — exclusiva Villa Veneza — está com *10% OFF só hoje*. É a queridinhas das clientes: "Comprei 3 cores e é muito boa!" 😍 Garante a sua antes de acabar 👇<br>[link do produto]<br><br>Qualquer dúvida estou aqui 💬 (16) 99402-6043
+      </div>
+      <div class="timing">
+        <span class="tbadge">Disparo: 10h</span><span class="tbadge">Domingo: pico WPP 9h–12h</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fcard">
+    <div class="card-label"><span class="dot d-alert"></span> Insight cruzado Edrone + Martz</div>
+    <p>Domingo tem o maior pico de leitura de WhatsApp da semana no Brasil. Priorize o disparo cedo. A prova social real (3 avaliações 5★ com depoimentos descritivos) é o ativo mais valioso para esta peça — use nos dois canais. A campanha Carrinho API da Martz já prova que o padrão "nome + benefício + link direto + urgência" funciona com 70% de engajamento. Replique aqui.</p>
+  </div>
+</div>
+
+<!-- DIA 14 -->
+<div class="panel" id="d14">
+  <div class="hero">
+    <div class="hero-head">
+      <h3>Calça Cenoura Botões Preta · Dia 14 (segunda)</h3>
+      <span class="pill pill-a">Lançamento · sem avaliações ainda</span>
+    </div>
+    <div class="hero-meta">R$ 179,00 → <strong>R$ 161,10</strong> com 10% OFF · linho misto 70% viscose + 30% linho · pregas frontais + detalhe botão na barra</div>
+    <p style="font-size:13px;color:#888;margin-top:8px;">Sem prova social: compensar com detalhes sensoriais, diferenciais técnicos e o contexto de "segunda-feira — começar bem a semana".</p>
+  </div>
+
+  <div class="stitle">Sequência coordenada do dia</div>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-time">08h30</div>
+      <div class="flow-ch em">E-mail (Edrone)</div>
+      <div class="flow-desc">Segunda: abertura alta no início da manhã</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">09h30</div>
+      <div class="flow-ch wh">WhatsApp (Martz)</div>
+      <div class="flow-desc">Tom: novidade + começo de semana</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">14h00</div>
+      <div class="flow-ch em">E-mail resend</div>
+      <div class="flow-desc">Só para quem não abriu pela manhã</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-label"><span class="dot d-email"></span> E-mail · Edrone</div>
+      <h4>Assunto — Teste A/B</h4>
+      <div class="copy">
+        <strong>Variante A — novidade + oferta</strong>
+        Chegou a cenoura que você vai querer em preto — 10% OFF só hoje
+      </div>
+      <div class="copy">
+        <strong>Variante B — curiosidade + elegância</strong>
+        Um modelo diferente. Um preço que não vai se repetir. Só segunda.
+      </div>
+      <h4 style="margin-top:12px;">Estrutura do e-mail</h4>
+      <p>Foto do produto + detalhe do botão na barra → headline: "Sofisticação com conforto no dia a dia" → preço com desconto → botão "Conhecer agora" → 3 diferenciais da peça: pregas que valorizam silhueta + viscose que cai bem + fechamento por botão elegante</p>
+      <div class="timing">
+        <span class="tbadge">Envio: 8h30</span><span class="tbadge">Resend: 14h</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label"><span class="dot d-wpp"></span> WhatsApp · Martz · Tom: novidade da semana</div>
+      <h4>Posicionar como peça do começo de semana</h4>
+      <div class="copy">
+        <strong>Copy pronta para disparar</strong>
+        Oi *{{1}}*! Segunda chegou com novidade 🖤 A *Calça Cenoura Botões Preta* está com *10% OFF só hoje* — modelo sofisticado, tecido leve, pregas que valorizam o corpo, detalhe de botão na barra. Perfeita pro seu dia a dia ✨<br>[link do produto]<br><br>Qualquer dúvida é só chamar 💬 (16) 99402-6043
+      </div>
+      <div class="timing">
+        <span class="tbadge">Disparo: 9h30</span><span class="tbadge">Segunda: alto engajamento manhã</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fcard">
+    <div class="card-label"><span class="dot d-alert"></span> Insight cruzado Edrone + Martz</div>
+    <p>Produto sem avaliações exige que o copy seja mais descritivo e concreto. Evite promessas genéricas como "leveza" — seja específica: "tecido que você usa o dia todo sem sentir calor". A campanha CashBack da Martz mostra que a base responde bem a produtos de linho — use isso como ponto de conexão no texto.</p>
+  </div>
+</div>
+
+<!-- DIA 15 -->
+<div class="panel" id="d15">
+  <div class="hero">
+    <div class="hero-head">
+      <h3>Calça Reta com Botão Preta · Dia 15 (terça)</h3>
+      <span class="pill pill-b">5★ · 4 avaliações · ticket mais alto do trio</span>
+    </div>
+    <div class="hero-meta">R$ 199,00 → <strong>R$ 179,10</strong> com 10% OFF · 82% viscose + 14% linho + elastano · bolsos frente e traseiro</div>
+    <div class="stars">★★★★★</div>
+    <p class="quote">"Não dá bolinha entre as pernas, o tecido é bem macio." — Erica P.</p>
+    <p class="quote">"Modelagem que não aperta e é linda no corpo." — Anita C.</p>
+    <p class="quote">"Adorei a calça, tamanho bom, modelagem boa, tecido ótimo." — Sabrina G.</p>
+  </div>
+
+  <div class="stitle">Sequência coordenada do dia</div>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-time">08h00</div>
+      <div class="flow-ch em">E-mail (Edrone)</div>
+      <div class="flow-desc">Terça: janela de leitura abre cedo</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">09h00</div>
+      <div class="flow-ch wh">WhatsApp (Martz)</div>
+      <div class="flow-desc">"Último dia" — senso de encerramento</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">13h00</div>
+      <div class="flow-ch em">E-mail resend</div>
+      <div class="flow-desc">Só para não-abridoras da manhã</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">18h00</div>
+      <div class="flow-ch wh">WPP encerramento</div>
+      <div class="flow-desc">"Últimas horas" — se conversão baixa</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-label"><span class="dot d-email"></span> E-mail · Edrone</div>
+      <h4>Assunto — Teste A/B</h4>
+      <div class="copy">
+        <strong>Variante A — depoimento como assunto (altamente recomendada)</strong>
+        "Não dá bolinha e o tecido é macio" — e hoje está com 10% OFF
+      </div>
+      <div class="copy">
+        <strong>Variante B — valor percebido</strong>
+        A calça que vale R$199 — e hoje você leva por R$179
+      </div>
+      <h4 style="margin-top:12px;">Estrutura do e-mail</h4>
+      <p>Foto do produto com look montado → headline com depoimento real → R$ 199 riscado + R$ 179,10 em destaque → botão "Garantir com desconto" → bloco com 2 avaliações reais → botão secundário "Ver mais cores"</p>
+      <div class="timing">
+        <span class="tbadge">Envio: 8h</span><span class="tbadge">Resend: 13h</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label"><span class="dot d-wpp"></span> WhatsApp · Martz · Tom: encerramento da semana</div>
+      <h4>Último dia — não desespero, conclusão natural</h4>
+      <div class="copy">
+        <strong>Copy pronta para disparar</strong>
+        Oi *{{1}}*! Hoje é o último dia da nossa semana especial 🖤 A *Calça Reta com Botão Preta* — nota 5 pelas clientes — está com *10% OFF só até meia-noite*.<br><br>"Não dá bolinha, tecido macio, linda no corpo" ⭐ É a mais querida! Garante a sua 👇<br>[link do produto]<br><br>Beijos, Ju da Villa Veneza 💬 (16) 99402-6043
+      </div>
+      <div class="timing">
+        <span class="tbadge">Disparo: 9h</span><span class="tbadge">Reforço às 18h se conversão baixa</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fcard">
+    <div class="card-label"><span class="dot d-alert"></span> Insight cruzado Edrone + Martz</div>
+    <p>Ticket mais alto (R$199). O copy deve trabalhar valor percebido antes de mencionar desconto. "Não dá bolinha entre as pernas" é um pain point real — use sem cerimônia. O elastano na composição é diferencial técnico que justifica o preço e pode ser mencionado: "tecido com elastano que acompanha o movimento". A assinatura "Ju da Villa Veneza" que funciona na Martz deve aparecer na copy do WPP — já provou gerar identificação.</p>
+  </div>
+</div>
+
+<!-- REGRAS + OPORTUNIDADES -->
+<div class="panel" id="regras">
+  <div class="stitle">Regra de ouro — coordenação entre canais</div>
+  <div class="grid2" style="margin-bottom:20px">
+    <div class="card">
+      <div class="card-label"><span class="dot d-email"></span> E-mail (Edrone) = storytelling</div>
+      <p>Mais espaço para foto, copy descritiva, depoimento, detalhes da peça. Abre o apetite. CTA único e visível. Limite de 3 produtos por e-mail.</p>
+    </div>
+    <div class="card">
+      <div class="card-label"><span class="dot d-wpp"></span> WhatsApp (Martz) = ação</div>
+      <p>Texto curto, link direto, urgência específica ("só hoje", "até meia-noite"). Fecha quem abriu o e-mail mas não clicou. Sempre com nome da cliente e assinatura "Ju".</p>
+    </div>
+  </div>
+
+  <div class="stitle">3 oportunidades imediatas na Martz (além dos 3 dias)</div>
+  <div class="grid3">
+    <div class="card">
+      <span class="pill pill-r" style="margin-bottom:8px;display:inline-block">Urgente</span>
+      <h4>Reativar "Saudades" com oferta</h4>
+      <p>Consolidar as 4 campanhas pausadas em 1. Adicionar cupom de 10% como na Carrinho API. Potencial: reativar 1% de 7.500 clientes = R$ 13.650 incremental. A base já tem 64% de leitura — só falta o gatilho de conversão.</p>
+    </div>
+    <div class="card">
+      <span class="pill pill-a" style="margin-bottom:8px;display:inline-block">Esta semana</span>
+      <h4>Adicionar D+5 ao Aniversário</h4>
+      <p>A conversão de 0,15% pode dobrar com um lembrete "seu cupom vence em 2 dias". 100% dos que compraram usaram o bônus — o problema é que a maioria não compra no D+0. O D+5 resolve isso.</p>
+    </div>
+    <div class="card">
+      <span class="pill pill-b" style="margin-bottom:8px;display:inline-block">Esta semana</span>
+      <h4>Transformar Confirmação em cross-sell</h4>
+      <p>75,26% de leitura — o maior da conta. Adicionar após a confirmação: "enquanto aguarda, veja o que combina com sua compra" + link de coleção complementar. Momento de máxima atenção da cliente.</p>
+    </div>
+  </div>
+
+  <div class="stitle">Segmentação recomendada para os 3 dias</div>
+  <div class="grid2">
+    <div class="fcard">
+      <h4 style="font-size:14px;margin-bottom:8px;">Base quente (comprou nos últimos 60 dias)</h4>
+      <p style="font-size:13px;color:#555;">Recebe primeiro, com copy de "como cliente especial, você vê antes de todo mundo". WhatsApp com nome personalizado e tom próximo. É o segmento que mais converte.</p>
+    </div>
+    <div class="fcard">
+      <h4 style="font-size:14px;margin-bottom:8px;">Base fria (não comprou há +90 dias)</h4>
+      <p style="font-size:13px;color:#555;">Recebe junto, mas com assunto focado na oferta e no produto — sem a intimidade da base quente. No WhatsApp, usar o padrão "Saudades" atual mas com link direto ao produto com desconto.</p>
+    </div>
+  </div>
+
+  <div class="stitle">O que medir nos 3 dias</div>
+  <div class="fcard">
+    <p style="font-size:13px;color:#555;line-height:1.8;">
+      <strong style="color:#2c2c2a;">E-mail:</strong> Taxa de abertura por variante de assunto (A/B) · CTR por dia · Qual dia/produto teve maior conversão<br>
+      <strong style="color:#2c2c2a;">WhatsApp:</strong> Taxa de leitura por dia · Cliques no link · Pedidos atribuídos ao WPP<br>
+      <strong style="color:#2c2c2a;">Integrado:</strong> Receita total por dia · Canal que gerou mais pedido (e-mail vs WPP) · Produto com melhor ROI do trio<br>
+      <strong style="color:#2c2c2a;">Benchmark:</strong> Ticket médio dos pedidos do período vs ticket médio geral da loja
+    </p>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
